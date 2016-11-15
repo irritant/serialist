@@ -1,7 +1,7 @@
 class SerialistPlayer {
 
 	constructor() {
-		this.worker = new Worker('dist/serialist-player-worker.js');
+		this.worker = new Worker('/dist/serialist-player-worker.js');
 		this.worker.addEventListener('message', message => {
 			var { data } = message;
 			switch (data.command) {

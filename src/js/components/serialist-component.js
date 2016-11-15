@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { SerialistParser } from '../parser/serialist-parser';
 import { SerialistPlayer } from '../player/serialist-player';
 import { MIDISource, MIDIManager } from '../midi/';
+/* eslint-enable no-unused-vars */
 
 const parser = new SerialistParser();
 const player = new SerialistPlayer();
@@ -60,7 +62,7 @@ class SerialistComponent extends Component {
 					{this.renderMidiPorts()}
 				</select>
 			</div>
-		)
+		);
 	}
 
 	renderError() {
@@ -70,7 +72,7 @@ class SerialistComponent extends Component {
 				<div className="serialist-error">
 					{error.message || 'Unknown parser error.'}
 				</div>
-			)
+			);
 		}
 
 		return null;
@@ -181,4 +183,4 @@ class SerialistComponent extends Component {
 
 }
 
-export { SerialistComponent }
+export { SerialistComponent };

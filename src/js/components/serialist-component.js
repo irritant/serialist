@@ -37,30 +37,35 @@ class SerialistComponent extends Component {
 	render() {
 		return (
 			<div className="serialist">
-				<textarea className="serialist-history" readOnly
-					value={this.state.history.join('\n\n')}
-				/>
-				<textarea className="serialist-input"
-					value={this.state.text}
-					onChange={this.updateText.bind(this)}
-				/>
-				{this.renderError()}
-				<button onClick={this.evaluateText.bind(this)} disabled={this.disableUpdateText()}>
+				<div className="serialist-transport">
+					<button onClick={this.evaluateText.bind(this)} disabled={this.disableUpdateText()}>
 					Evaluate
-				</button>
-				<button onClick={this.playPause.bind(this)} disabled={this.disablePlayPause()}>
-					{(player.playing && !player.paused) ? 'Pause' : 'Play'}
-				</button>
-				<button onClick={this.stop.bind(this)} disabled={this.disableStop()}>
-					Stop
-				</button>
-				<button onClick={this.reset.bind(this)}>
-					Reset
-				</button>
-				<select onChange={this.updateMidiPort.bind(this)} disabled={this.disableUpdateMidiPort()}>
-					<option value="">MIDI Port</option>
-					{this.renderMidiPorts()}
-				</select>
+					</button>
+					<button onClick={this.playPause.bind(this)} disabled={this.disablePlayPause()}>
+						{(player.playing && !player.paused) ? 'Pause' : 'Play'}
+					</button>
+					<button onClick={this.stop.bind(this)} disabled={this.disableStop()}>
+						Stop
+					</button>
+					<button onClick={this.reset.bind(this)}>
+						Reset
+					</button>
+					<select onChange={this.updateMidiPort.bind(this)} disabled={this.disableUpdateMidiPort()}>
+						<option value="">Select MIDI Port</option>
+						{this.renderMidiPorts()}
+					</select>
+				</div>
+				<div className="serialist-content">
+					<label>
+						<span>Command</span>
+						<textarea className="serialist-grammar" value={this.state.text} onChange={this.updateText.bind(this)} />
+					</label>
+					<label>
+						<span>History</span>
+						<textarea className="serialist-history" value={this.state.history.join('\n\n')} readOnly />
+					</label>
+				</div>
+				{this.renderError()}
 			</div>
 		);
 	}
@@ -70,7 +75,9 @@ class SerialistComponent extends Component {
 		if (error) {
 			return (
 				<div className="serialist-error">
-					{error.message || 'Unknown parser error.'}
+					<span>
+						{error.message || 'Unknown parser error.'}
+					</span>
 				</div>
 			);
 		}

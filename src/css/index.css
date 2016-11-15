@@ -1,5 +1,106 @@
 @import 'variables.css';
 
+body,
+html {
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	font-family: var(--fontFamily);
+	font-size: var(--fontSize);
+}
+
 .serialist {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+
+.serialist-transport {
+	display: flex;
+	align-items: stretch;
+	padding-top: var(--standardPadding);
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--narrowMargin);
+}
+
+.serialist-transport > button,
+.serialist-transport > select {
+	appearance: none;
+	background: none;
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	border-width: var(--borderWidth);
+	border-radius: var(--borderRadius);
+	border-style: solid;
+	border-color: var(--borderColor);
+	margin-right: var(--narrowMargin);
+	padding: var(--narrowPadding) var(--standardPadding);
+}
+
+.serialist-transport > button:disabled {
+	color: var(--mutedColor);
+	border-color: var(--mutedColor);
+}
+
+.serialist-titles {
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--narrowMargin);
+}
+
+.serialist-content {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--standardMargin);
+}
+
+.serialist-content > label {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.serialist-content > label > span {
+	display: block;
+	line-height: 1.8;
+}
+
+.serialist-content > label > textarea {
+	flex: 1;
+	padding: var(--narrowPadding);
+	border-width: var(--borderWidth);
+	border-radius: var(--borderRadius);
+	border-style: solid;
+	border-color: var(--borderColor);
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	font-family: var(--fontFamily);
+	font-size: var(--fontSize);
+}
+
+textarea.serialist-grammar {
+	margin-right: var(--standardMargin);
+}
+
+.serialist-error {
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--standardMargin);
+}
+
+.serialist-error > span {
+	display: block;
+	padding: var(--narrowPadding);
+	background-color: var(--alertColor);
+	color: var(--textColor);
+	font-weight: 600;
 }

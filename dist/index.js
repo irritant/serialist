@@ -15009,44 +15009,65 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'serialist' },
-					_react2.default.createElement('textarea', { className: 'serialist-history', readOnly: true,
-						value: this.state.history.join('\n\n')
-					}),
-					_react2.default.createElement('textarea', { className: 'serialist-input',
-						value: this.state.text,
-						onChange: this.updateText.bind(this)
-					}),
-					this.renderError(),
 					_react2.default.createElement(
-						'button',
-						{ onClick: this.evaluateText.bind(this), disabled: this.disableUpdateText() },
-						'Evaluate'
-					),
-					_react2.default.createElement(
-						'button',
-						{ onClick: this.playPause.bind(this), disabled: this.disablePlayPause() },
-						player.playing && !player.paused ? 'Pause' : 'Play'
-					),
-					_react2.default.createElement(
-						'button',
-						{ onClick: this.stop.bind(this), disabled: this.disableStop() },
-						'Stop'
-					),
-					_react2.default.createElement(
-						'button',
-						{ onClick: this.reset.bind(this) },
-						'Reset'
-					),
-					_react2.default.createElement(
-						'select',
-						{ onChange: this.updateMidiPort.bind(this), disabled: this.disableUpdateMidiPort() },
+						'div',
+						{ className: 'serialist-transport' },
 						_react2.default.createElement(
-							'option',
-							{ value: '' },
-							'MIDI Port'
+							'button',
+							{ onClick: this.evaluateText.bind(this), disabled: this.disableUpdateText() },
+							'Evaluate'
 						),
-						this.renderMidiPorts()
-					)
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.playPause.bind(this), disabled: this.disablePlayPause() },
+							player.playing && !player.paused ? 'Pause' : 'Play'
+						),
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.stop.bind(this), disabled: this.disableStop() },
+							'Stop'
+						),
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.reset.bind(this) },
+							'Reset'
+						),
+						_react2.default.createElement(
+							'select',
+							{ onChange: this.updateMidiPort.bind(this), disabled: this.disableUpdateMidiPort() },
+							_react2.default.createElement(
+								'option',
+								{ value: '' },
+								'Select MIDI Port'
+							),
+							this.renderMidiPorts()
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'serialist-content' },
+						_react2.default.createElement(
+							'label',
+							null,
+							_react2.default.createElement(
+								'span',
+								null,
+								'Command'
+							),
+							_react2.default.createElement('textarea', { className: 'serialist-grammar', value: this.state.text, onChange: this.updateText.bind(this) })
+						),
+						_react2.default.createElement(
+							'label',
+							null,
+							_react2.default.createElement(
+								'span',
+								null,
+								'History'
+							),
+							_react2.default.createElement('textarea', { className: 'serialist-history', value: this.state.history.join('\n\n'), readOnly: true })
+						)
+					),
+					this.renderError()
 				);
 			}
 		}, {
@@ -15057,7 +15078,11 @@
 					return _react2.default.createElement(
 						'div',
 						{ className: 'serialist-error' },
-						error.message || 'Unknown parser error.'
+						_react2.default.createElement(
+							'span',
+							null,
+							error.message || 'Unknown parser error.'
+						)
 					);
 				}
 	

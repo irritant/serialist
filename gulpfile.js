@@ -183,7 +183,7 @@ function webpackWatchWorkers() {
 }
 
 gulp.task('watch', function() {
-  gulp.watch(paths.src.css.app, ['css-dev']);
+  gulp.watch(paths.src.css, ['css-dev']);
   webpackWatchJs();
   webpackWatchWorkers();
 });

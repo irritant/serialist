@@ -1,2 +1,15 @@
 :root {
+	--standardPadding: 10px;
+	--standardMargin: 10px;
+	--narrowPadding: 5px;
+	--narrowMargin: 5px;
+	--borderWidth: 1px;
+	--borderRadius: 0;
+	--backgroundColor: #000;
+	--borderColor: #fff;
+	--textColor: #fff;
+	--mutedColor: #a1a1a1;
+	--alertColor: #ff0000;
+	--fontFamily: 'Courier New';
+	--fontSize: 16px;
 }

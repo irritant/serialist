@@ -1,6 +1,121 @@
+body,
+html {
+	background-color: #000;
+	color: #fff;
+	font-family: 'Courier New';
+	font-size: 16px;
+}
+
 .serialist {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	display: -ms-flexbox;
 	display: flex;
+	-ms-flex-direction: column;
+	    flex-direction: column;
+	-ms-flex-wrap: nowrap;
+	    flex-wrap: nowrap;
+}
+
+.serialist-transport {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: stretch;
+	    align-items: stretch;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 5px;
+}
+
+.serialist-transport > button,
+.serialist-transport > select {
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+	background: none;
+	background-color: #000;
+	color: #fff;
+	border-width: 1px;
+	border-radius: 0;
+	border-style: solid;
+	border-color: #fff;
+	margin-right: 5px;
+	padding: 5px 10px;
+}
+
+.serialist-transport > button:disabled {
+	color: #a1a1a1;
+	border-color: #a1a1a1;
+}
+
+.serialist-titles {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 5px;
+}
+
+.serialist-content {
+	-ms-flex: 1;
+	    flex: 1;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: row;
+	    flex-direction: row;
+	-ms-flex-align: stretch;
+	    align-items: stretch;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+.serialist-content > label {
+	-ms-flex: 1;
+	    flex: 1;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	    flex-direction: column;
+}
+
+.serialist-content > label > span {
+	display: block;
+	line-height: 1.8;
+}
+
+.serialist-content > label > textarea {
+	-ms-flex: 1;
+	    flex: 1;
+	padding: 5px;
+	border-width: 1px;
+	border-radius: 0;
+	border-style: solid;
+	border-color: #fff;
+	background-color: #000;
+	color: #fff;
+	font-family: 'Courier New';
+	font-size: 16px;
+}
+
+textarea.serialist-grammar {
+	margin-right: 10px;
+}
+
+.serialist-error {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+.serialist-error > span {
+	display: block;
+	padding: 5px;
+	background-color: #ff0000;
+	color: #fff;
+	font-weight: 600;
 }
 
 /*# sourceMappingURL=index.css.map */

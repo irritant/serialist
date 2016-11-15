@@ -47,7 +47,7 @@ const Config = {
   plugins: [
     new htmlWebpackPlugin({
       template: 'src/views/index.html',
-      filename: './views/index.html',
+      filename: path.resolve(__dirname, 'index.html'),
       inject: 'head',
       hash: true
     }),

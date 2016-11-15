@@ -1,0 +1,31 @@
+{
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "indent": ["error", "tab"],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["warn", "single"],
+        "quote-props": ["warn", "as-needed"],
+        "jsx-quotes": ["warn", "prefer-double"],
+        "semi": ["warn", "always"],
+        "no-extra-semi": "warn",
+        "no-cond-assign": ["error", "always"],
+        "no-alert": "warn",
+        "no-console": "off",
+        "no-unused-vars": "warn",
+        "react/jsx-uses-vars": 1
+    },
+    "plugins": [
+        "react"
+    ],
+    "env": {
+        "browser": true,
+        "node": true
+    }
+}

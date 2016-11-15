@@ -56,14 +56,14 @@ class MIDIManager {
 				});
 
 		});
-	};
+	}
 
 	resetPorts() {
 		this.inputPorts = {};
 		this.orderedInputPorts = [];
 		this.outputPorts = {};
 		this.orderedOutputPorts = [];
-	};
+	}
 
 }
 

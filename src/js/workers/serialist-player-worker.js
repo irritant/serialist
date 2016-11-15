@@ -174,20 +174,20 @@ const manager = new SerialistVoiceQueueManager();
 
 self.addEventListener('message', message => {
 	switch (message.data.command) {
-		case 'voices.queue':
-			manager.setVoices(message.data.voices || []);
-			manager.play();
-			break;
-		case 'transport.play':
-			manager.play();
-			break;
-		case 'transport.pause':
-			manager.pause();
-			break;
-		case 'transport.stop':
-			manager.stop();
-			break;
-		default:
-			break;
+	case 'voices.queue':
+		manager.setVoices(message.data.voices || []);
+		manager.play();
+		break;
+	case 'transport.play':
+		manager.play();
+		break;
+	case 'transport.pause':
+		manager.pause();
+		break;
+	case 'transport.stop':
+		manager.stop();
+		break;
+	default:
+		break;
 	}
 });

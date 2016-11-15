@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAEA;CACA,qBAAA;CAAA,cAAA;CACA","file":"index.css","sourcesContent":["@import 'variables.css';\n\n.serialist {\n\tdisplay: flex;\n}\n"]}

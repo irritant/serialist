@@ -32,9 +32,24 @@ var paths = {
         prod: './webpack.workers.prod.config.js'
       }
     },
-    css: 'src/css/**/*'
+    css: {
+      app: 'src/css/app/**/*',
+      vendor: [
+        'src/css/vendor/font-awesome/css/font-awesome.min.css'
+      ]
+    },
+    fonts: [
+      'src/css/vendor/font-awesome/fonts/*'
+    ],
+    images: [
+      'src/images/*'
+    ]
   },
-  dist: 'dist/'
+  output: {
+    dist: 'dist/',
+    images: 'images/',
+    fonts: 'fonts/'
+  }
 };
 
 /* ******* */
@@ -54,7 +69,7 @@ function logError(message) {
 /* ********* */
 
 function cssBaseTask() {
-  return gulp.src(paths.src.css)
+  return gulp.src(paths.src.css.app)
     .pipe(stylelint({
       reporters: [{
         formatter: 'string',
@@ -80,7 +95,7 @@ function cssBaseTask() {
 gulp.task('css-dev', function() {
   return cssBaseTask()
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.dist))
+    .pipe(gulp.dest(paths.output.dist))
     .on('finish', function() {
       logMessage('Completed task: css-dev');
     });
@@ -90,9 +105,38 @@ gulp.task('css-prod', function() {
   return cssBaseTask()
     .pipe(minifycss())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.dist))
+    .pipe(gulp.dest(paths.output.dist))
     .on('finish', function() {
       logMessage('Completed task: css-prod');
+    });
+});
+
+gulp.task('css-vendor', function() {
+  return gulp.src(paths.src.css.vendor)
+    .pipe(concat('vendor.css', {newLine: '\n\n'}))
+    .pipe(gulp.dest(paths.output.dist))
+    .on('finish', function() {
+      logMessage('Completed task: css-vendor');
+    });
+});
+
+/* ******************** */
+/* Fonts & Images Tasks */
+/* ******************** */
+
+gulp.task('fonts', function() {
+  return gulp.src(paths.src.fonts)
+    .pipe(gulp.dest(paths.output.fonts))
+    .on('finish', function() {
+      logMessage('Completed task: fonts');
+    });
+});
+
+gulp.task('images', function() {
+  return gulp.src(paths.src.images)
+    .pipe(gulp.dest(paths.output.images))
+    .on('finish', function() {
+      logMessage('Completed task: images');
     });
 });
 
@@ -105,7 +149,7 @@ gulp.task('webpack-js', function() {
 
   return gulp.src(paths.src.js.entry)
     .pipe(webpack(config))
-    .pipe(gulp.dest(paths.dist))
+    .pipe(gulp.dest(paths.output.dist))
     .on('finish', function() {
       logMessage('Completed task: webpack-js');
     });
@@ -116,7 +160,7 @@ gulp.task('webpack-workers', function() {
 
   return gulp.src(paths.src.workers.entry)
     .pipe(webpack(config))
-    .pipe(gulp.dest(paths.dist))
+    .pipe(gulp.dest(paths.output.dist))
     .on('finish', function() {
       logMessage('Completed task: webpack-workers');
     });
@@ -125,7 +169,10 @@ gulp.task('webpack-workers', function() {
 gulp.task('default', [
   'webpack-js',
   'webpack-workers',
-  'css-dev'
+  'css-dev',
+  'css-vendor',
+  'fonts',
+  'images'
 ]);
 
 /* **************** */
@@ -137,7 +184,7 @@ gulp.task('production-js', function() {
 
   return gulp.src(paths.src.js.entry)
     .pipe(webpack(config))
-    .pipe(gulp.dest(paths.dist));
+    .pipe(gulp.dest(paths.output.dist));
 });
 
 gulp.task('production-workers', function() {
@@ -145,13 +192,16 @@ gulp.task('production-workers', function() {
 
   return gulp.src(paths.src.workers.entry)
     .pipe(webpack(config))
-    .pipe(gulp.dest(paths.dist));
+    .pipe(gulp.dest(paths.output.dist));
 });
 
 gulp.task('production', [
   'production-js',
   'production-workers',
-  'css-prod'
+  'css-prod',
+  'css-vendor',
+  'fonts',
+  'images'
 ]);
 
 /* ******** */
@@ -164,7 +214,7 @@ function webpackWatchJs() {
 
   return gulp.src(paths.src.js.entry)
     .pipe(webpack(config))
-    .pipe(gulp.dest(paths.dist))
+    .pipe(gulp.dest(paths.output.dist))
     .on('finish', function() {
       logMessage('Completed task: webpack-js');
     });
@@ -176,14 +226,17 @@ function webpackWatchWorkers() {
 
   return gulp.src(paths.src.workers.entry)
     .pipe(webpack(config))
-    .pipe(gulp.dest(paths.dist))
+    .pipe(gulp.dest(paths.output.dist))
     .on('finish', function() {
       logMessage('Completed task: webpack-workers');
     });
 }
 
 gulp.task('watch', function() {
-  gulp.watch(paths.src.css, ['css-dev']);
+  gulp.watch(paths.src.css.app, ['css-dev']);
+  gulp.watch(paths.src.css.vendor, ['css-vendor']);
+  gulp.watch(paths.src.fonts, ['fonts']);
+  gulp.watch(paths.src.img, ['images']);
   webpackWatchJs();
   webpackWatchWorkers();
 });

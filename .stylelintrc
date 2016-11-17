@@ -65,8 +65,8 @@
       "message": "Avoid named colors"
     }],
     "font-family-name-quotes": ["always-where-recommended", {
-      "severity": "error",
-      "message": "Font family names that contain spaces or punctuation must be quoted"
+      "severity": "warning",
+      "message": "Font family names that contain spaces or punctuation should be quoted"
     }],
     "function-comma-space-after": ["always-single-line", {
       "severity": "warning",

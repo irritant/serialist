@@ -2,8 +2,20 @@ body,
 html {
 	background-color: #000;
 	color: #fff;
-	font-family: 'Courier New';
+	font-family: 'Helvetica Neue', 'Helvetica', 'sans-serif';
 	font-size: 16px;
+}
+
+a > img {
+	outline: 0;
+}
+
+.serialist-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
 
 .serialist {
@@ -20,45 +32,112 @@ html {
 	    flex-wrap: nowrap;
 }
 
-.serialist-transport {
+.header {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: baseline;
+	    align-items: baseline;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+.header > h1 {
+	-ms-flex: 1;
+	    flex: 1;
+	margin: 0;
+	margin-right: 10px;
+	font-size: 2em;
+	font-weight: normal;
+	line-height: 1;
+}
+
+.header > a {
+	display: block;
+	-ms-flex-item-align: center;
+	    -ms-grid-row-align: center;
+	    align-self: center;
+}
+
+.header > a > img.logo {
+	max-height: 40px;
+}
+
+.transport {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	    align-items: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+.transport > .controls {
 	display: -ms-flexbox;
 	display: flex;
 	-ms-flex-align: stretch;
 	    align-items: stretch;
-	padding-top: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 5px;
+	-ms-flex: 1;
+	    flex: 1;
 }
 
-.serialist-transport > button,
-.serialist-transport > select {
+.transport > .status {
+	font-family: 'Courier New';
+	font-size: 12px;
+}
+
+.transport .select-wrap {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: stretch;
+	    align-items: stretch;
+	position: relative;
+}
+
+.transport .select-wrap:before {
+	position: absolute;
+	top: 8px;
+	right: 10px;
+	width: 20px;
+	text-align: right;
+	font-family: FontAwesome;
+	font-size: 12px;
+	content: '\f078';
+	pointer-events: none;
+}
+
+.transport button,
+.transport select {
 	-webkit-appearance: none;
 	   -moz-appearance: none;
 	        appearance: none;
 	background: none;
 	background-color: #000;
 	color: #fff;
+	font-family: 'Helvetica Neue', 'Helvetica', 'sans-serif';
+	font-size: 16px;
 	border-width: 1px;
 	border-radius: 0;
 	border-style: solid;
 	border-color: #fff;
 	margin-right: 5px;
 	padding: 5px 10px;
+	outline: none;
 }
 
-.serialist-transport > button:disabled {
+.transport select {
+	padding-right: 30px;
+	font-size: 12px;
+}
+
+.transport button:disabled {
 	color: #a1a1a1;
 	border-color: #a1a1a1;
 }
 
-.serialist-titles {
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 5px;
-}
-
-.serialist-content {
+.editor {
 	-ms-flex: 1;
 	    flex: 1;
 	display: -ms-flexbox;
@@ -72,7 +151,7 @@ html {
 	margin-bottom: 10px;
 }
 
-.serialist-content > label {
+.editor > label {
 	-ms-flex: 1;
 	    flex: 1;
 	display: -ms-flexbox;
@@ -81,12 +160,12 @@ html {
 	    flex-direction: column;
 }
 
-.serialist-content > label > span {
+.editor > label > span {
 	display: block;
 	line-height: 1.8;
 }
 
-.serialist-content > label > textarea {
+.editor > label > textarea {
 	-ms-flex: 1;
 	    flex: 1;
 	padding: 5px;
@@ -100,21 +179,17 @@ html {
 	font-size: 16px;
 }
 
-textarea.serialist-grammar {
+textarea.grammar {
 	margin-right: 10px;
 }
 
-.serialist-error {
+.error {
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 10px;
-}
-
-.serialist-error > span {
-	display: block;
-	padding: 5px;
-	background-color: #ff0000;
-	color: #fff;
+	color: #ff0000;
+	font-family: 'Courier New';
+	font-size: 16px;
 	font-weight: 600;
 }
 

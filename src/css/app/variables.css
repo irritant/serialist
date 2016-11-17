@@ -10,6 +10,9 @@
 	--textColor: #fff;
 	--mutedColor: #a1a1a1;
 	--alertColor: #ff0000;
-	--fontFamily: 'Courier New';
+	--fontFamily: 'Helvetica Neue', 'Helvetica', 'sans-serif';
 	--fontSize: 16px;
+	--smallFontSize: 12px;
+	--editorFontFamily: 'Courier New';
+	--editorFontSize: 16px;
 }

@@ -1,0 +1,171 @@
+@import 'variables.css';
+
+body,
+html {
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	font-family: var(--fontFamily);
+	font-size: var(--fontSize);
+}
+
+a > img {
+	outline: 0;
+}
+
+.serialist-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.serialist {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+
+.header {
+	display: flex;
+	align-items: baseline;
+	padding-top: var(--standardPadding);
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--standardMargin);
+}
+
+.header > h1 {
+	flex: 1;
+	margin: 0;
+	margin-right: var(--standardMargin);
+	font-size: 2em;
+	font-weight: normal;
+	line-height: 1;
+}
+
+.header > a {
+	display: block;
+	align-self: center;
+}
+
+.header > a > img.logo {
+	max-height: 40px;
+}
+
+.transport {
+	display: flex;
+	align-items: center;
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--standardMargin);
+}
+
+.transport > .controls {
+	display: flex;
+	align-items: stretch;
+	flex: 1;
+}
+
+.transport > .status {
+	font-family: var(--editorFontFamily);
+	font-size: var(--smallFontSize);
+}
+
+.transport .select-wrap {
+	display: flex;
+	align-items: stretch;
+	position: relative;
+}
+
+.transport .select-wrap:before {
+	position: absolute;
+	top: 8px;
+	right: 10px;
+	width: 20px;
+	text-align: right;
+	font-family: FontAwesome;
+	font-size: var(--smallFontSize);
+	content: '\f078';
+	pointer-events: none;
+}
+
+.transport button,
+.transport select {
+	appearance: none;
+	background: none;
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	font-family: var(--fontFamily);
+	font-size: var(--fontSize);
+	border-width: var(--borderWidth);
+	border-radius: var(--borderRadius);
+	border-style: solid;
+	border-color: var(--borderColor);
+	margin-right: var(--narrowMargin);
+	padding: var(--narrowPadding) var(--standardPadding);
+	outline: none;
+}
+
+.transport select {
+	padding-right: 30px;
+	font-size: var(--smallFontSize);
+}
+
+.transport button:disabled {
+	color: var(--mutedColor);
+	border-color: var(--mutedColor);
+}
+
+.editor {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--standardMargin);
+}
+
+.editor > label {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.editor > label > span {
+	display: block;
+	line-height: 1.8;
+}
+
+.editor > label > textarea {
+	flex: 1;
+	padding: var(--narrowPadding);
+	border-width: var(--borderWidth);
+	border-radius: var(--borderRadius);
+	border-style: solid;
+	border-color: var(--borderColor);
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	font-family: var(--editorFontFamily);
+	font-size: var(--editorFontSize);
+}
+
+textarea.grammar {
+	margin-right: var(--standardMargin);
+}
+
+.error {
+	padding-left: var(--standardPadding);
+	padding-right: var(--standardPadding);
+	margin-bottom: var(--standardMargin);
+	color: var(--alertColor);
+	font-family: var(--editorFontFamily);
+	font-size: var(--editorFontSize);
+	font-weight: 600;
+}

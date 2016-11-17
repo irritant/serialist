@@ -20,10 +20,6 @@
       "severity": "warning",
       "message": "Avoid browser hacks"
     }],
-    "no-descending-specificity": [true, {
-      "severity": "warning",
-      "message": "Avoid ordering rules by descending specificity"
-    }],
     "no-duplicate-selectors": [true, {
       "severity": "warning",
       "message": "Avoid using duplicate selectors"
@@ -69,8 +65,8 @@
       "message": "Avoid named colors"
     }],
     "font-family-name-quotes": ["always-where-recommended", {
-      "severity": "error",
-      "message": "Font family names that contain spaces or punctuation must be quoted"
+      "severity": "warning",
+      "message": "Font family names that contain spaces or punctuation should be quoted"
     }],
     "function-comma-space-after": ["always-single-line", {
       "severity": "warning",
@@ -360,7 +356,7 @@
       "severity": "warning",
       "message": "Commas after selectors in selector lists should never be preceded by a line break"
     }],
-    "selector-list-comma-space-after": ["always", {
+    "selector-list-comma-space-after": ["always-single-line", {
       "severity": "warning",
       "message": "Commas after selectors in selector lists should always be followed by a single space"
     }],

@@ -8,9 +8,10 @@
 	--backgroundColor: #000;
 	--borderColor: #fff;
 	--textColor: #fff;
+	--hoverColor: #a1a1a1;
 	--mutedColor: #a1a1a1;
 	--alertColor: #ff0000;
-	--fontFamily: 'Helvetica Neue', 'Helvetica', 'sans-serif';
+	--fontFamily: 'Avenir', 'Helvetica Neue', 'Helvetica', 'sans-serif';
 	--fontSize: 16px;
 	--smallFontSize: 12px;
 	--editorFontFamily: 'Courier New';

@@ -96,4 +96,4 @@ class SerialistPlayer {
 
 }
 
-export { SerialistPlayer };
+export default SerialistPlayer;

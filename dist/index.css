@@ -1,15 +1,51 @@
+.overlay {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	    flex-direction: column;
+	-ms-flex-pack: center;
+	    justify-content: center;
+	-ms-flex-align: center;
+	    align-items: center;
+	margin: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+}
+.midi-overlay-title {
+	font-size: 2em;
+	font-weight: normal;
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+.midi-overlay-message {
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.midi-overlay-message a {
+	color: #fff;
+	text-decoration: underline;
+}
+.midi-overlay-message a:hover,
+.midi-overlay-message a:active {
+	color: #a1a1a1;
+}
 body,
 html {
 	background-color: #000;
 	color: #fff;
-	font-family: 'Helvetica Neue', 'Helvetica', 'sans-serif';
+	font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'sans-serif';
 	font-size: 16px;
 }
-
 a > img {
 	outline: 0;
 }
-
 .serialist-container {
 	position: absolute;
 	top: 0;
@@ -17,7 +53,6 @@ a > img {
 	bottom: 0;
 	right: 0;
 }
-
 .serialist {
 	position: absolute;
 	top: 0;
@@ -31,7 +66,6 @@ a > img {
 	-ms-flex-wrap: nowrap;
 	    flex-wrap: nowrap;
 }
-
 .header {
 	display: -ms-flexbox;
 	display: flex;
@@ -42,7 +76,6 @@ a > img {
 	padding-right: 10px;
 	margin-bottom: 10px;
 }
-
 .header > h1 {
 	-ms-flex: 1;
 	    flex: 1;
@@ -52,18 +85,15 @@ a > img {
 	font-weight: normal;
 	line-height: 1;
 }
-
 .header > a {
 	display: block;
 	-ms-flex-item-align: center;
 	    -ms-grid-row-align: center;
 	    align-self: center;
 }
-
 .header > a > img.logo {
 	max-height: 40px;
 }
-
 .transport {
 	display: -ms-flexbox;
 	display: flex;
@@ -73,7 +103,6 @@ a > img {
 	padding-right: 10px;
 	margin-bottom: 10px;
 }
-
 .transport > .controls {
 	display: -ms-flexbox;
 	display: flex;
@@ -82,12 +111,10 @@ a > img {
 	-ms-flex: 1;
 	    flex: 1;
 }
-
 .transport > .status {
 	font-family: 'Courier New';
 	font-size: 12px;
 }
-
 .transport .select-wrap {
 	display: -ms-flexbox;
 	display: flex;
@@ -95,7 +122,6 @@ a > img {
 	    align-items: stretch;
 	position: relative;
 }
-
 .transport .select-wrap:before {
 	position: absolute;
 	top: 8px;
@@ -107,7 +133,6 @@ a > img {
 	content: '\f078';
 	pointer-events: none;
 }
-
 .transport button,
 .transport select {
 	-webkit-appearance: none;
@@ -116,7 +141,7 @@ a > img {
 	background: none;
 	background-color: #000;
 	color: #fff;
-	font-family: 'Helvetica Neue', 'Helvetica', 'sans-serif';
+	font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'sans-serif';
 	font-size: 16px;
 	border-width: 1px;
 	border-radius: 0;
@@ -126,17 +151,14 @@ a > img {
 	padding: 5px 10px;
 	outline: none;
 }
-
 .transport select {
 	padding-right: 30px;
 	font-size: 12px;
 }
-
 .transport button:disabled {
 	color: #a1a1a1;
 	border-color: #a1a1a1;
 }
-
 .editor {
 	-ms-flex: 1;
 	    flex: 1;
@@ -150,7 +172,6 @@ a > img {
 	padding-right: 10px;
 	margin-bottom: 10px;
 }
-
 .editor > label {
 	-ms-flex: 1;
 	    flex: 1;
@@ -159,12 +180,10 @@ a > img {
 	-ms-flex-direction: column;
 	    flex-direction: column;
 }
-
 .editor > label > span {
 	display: block;
 	line-height: 1.8;
 }
-
 .editor > label > textarea {
 	-ms-flex: 1;
 	    flex: 1;
@@ -178,11 +197,9 @@ a > img {
 	font-family: 'Courier New';
 	font-size: 16px;
 }
-
 textarea.grammar {
 	margin-right: 10px;
 }
-
 .error {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -191,6 +208,44 @@ textarea.grammar {
 	font-family: 'Courier New';
 	font-size: 16px;
 	font-weight: 600;
+}
+.midi-overlay-title {
+	font-size: 2em;
+	font-weight: normal;
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+.midi-overlay-message {
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.midi-overlay-message a {
+	color: #fff;
+	text-decoration: underline;
+}
+.midi-overlay-message a:hover,
+.midi-overlay-message a:active {
+	color: #a1a1a1;
+}
+.overlay {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	    flex-direction: column;
+	-ms-flex-pack: center;
+	    justify-content: center;
+	-ms-flex-align: center;
+	    align-items: center;
+	margin: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
 }
 
 /*# sourceMappingURL=index.css.map */

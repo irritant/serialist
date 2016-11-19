@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import classnames from 'classnames';
-import { SerialistParser } from '../parser/serialist-parser';
-import { SerialistPlayer } from '../player/serialist-player';
+import MidiOverlay from './midi-overlay';
+import SerialistParser from '../parser/serialist-parser';
+import SerialistPlayer from '../player/serialist-player';
 import { MIDISource, MIDIManager } from '../midi/';
 /* eslint-enable no-unused-vars */
 
@@ -11,7 +12,7 @@ const parser = new SerialistParser();
 const player = new SerialistPlayer();
 const midi = new MIDIManager();
 
-class SerialistComponent extends Component {
+class Serialist extends Component {
 
 	constructor(props) {
 		super(props);
@@ -41,6 +42,7 @@ class SerialistComponent extends Component {
 	render() {
 		return (
 			<div className="serialist">
+				<MidiOverlay visible={!MIDISource.canUseMIDI()} />
 				<div className="header">
 					<h1>Serialist</h1>
 					<a href="https://irritantcreative.ca" target="_blank">
@@ -230,4 +232,4 @@ class SerialistComponent extends Component {
 
 }
 
-export { SerialistComponent };
+export default Serialist;

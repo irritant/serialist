@@ -34,4 +34,4 @@ MIDISource.canUseMIDI = function() {
 	return (typeof navigator.requestMIDIAccess === 'function');
 };
 
-export { MIDISource };
+export default MIDISource;

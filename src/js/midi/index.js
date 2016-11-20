@@ -1,5 +1,5 @@
-import { MIDISource } from './midi-source';
-import { MIDIManager } from './midi-manager';
+import MIDISource from './midi-source';
+import MIDIManager from './midi-manager';
 
 export {
 	MIDISource,

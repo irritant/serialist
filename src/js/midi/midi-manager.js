@@ -1,4 +1,4 @@
-import { MIDISource } from './midi-source';
+import MIDISource from './midi-source';
 
 class MIDIManager {
 
@@ -67,4 +67,4 @@ class MIDIManager {
 
 }
 
-export { MIDIManager };
+export default MIDIManager;

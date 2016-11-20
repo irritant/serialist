@@ -27,4 +27,4 @@ class SerialistParser {
 
 }
 
-export { SerialistParser };
+export default SerialistParser;

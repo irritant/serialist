@@ -1,4 +1,7 @@
 @import 'variables.css';
+@import 'overlay.css';
+@import 'help-overlay.css';
+@import 'midi-overlay.css';
 
 body,
 html {
@@ -10,6 +13,55 @@ html {
 
 a > img {
 	outline: 0;
+}
+
+button,
+select {
+	appearance: none;
+	background: none;
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	font-family: var(--fontFamily);
+	font-size: var(--fontSize);
+	border-width: var(--borderWidth);
+	border-radius: var(--borderRadius);
+	border-style: solid;
+	border-color: var(--borderColor);
+	margin-right: var(--narrowMargin);
+	padding: var(--narrowPadding) var(--standardPadding);
+	outline: none;
+}
+
+button:disabled {
+	color: var(--mutedColor);
+	border-color: var(--mutedColor);
+}
+
+button:not(:disabled):hover {
+	background-color: var(--hoverBackgroundColor);
+}
+
+select {
+	padding-right: 30px;
+	font-size: var(--smallFontSize);
+}
+
+.select-wrap {
+	display: flex;
+	align-items: stretch;
+	position: relative;
+}
+
+.select-wrap:before {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 20px;
+	text-align: right;
+	font-family: FontAwesome;
+	font-size: var(--smallFontSize);
+	content: '\f078';
+	pointer-events: none;
 }
 
 .serialist-container {
@@ -75,51 +127,6 @@ a > img {
 .transport > .status {
 	font-family: var(--editorFontFamily);
 	font-size: var(--smallFontSize);
-}
-
-.transport .select-wrap {
-	display: flex;
-	align-items: stretch;
-	position: relative;
-}
-
-.transport .select-wrap:before {
-	position: absolute;
-	top: 8px;
-	right: 10px;
-	width: 20px;
-	text-align: right;
-	font-family: FontAwesome;
-	font-size: var(--smallFontSize);
-	content: '\f078';
-	pointer-events: none;
-}
-
-.transport button,
-.transport select {
-	appearance: none;
-	background: none;
-	background-color: var(--backgroundColor);
-	color: var(--textColor);
-	font-family: var(--fontFamily);
-	font-size: var(--fontSize);
-	border-width: var(--borderWidth);
-	border-radius: var(--borderRadius);
-	border-style: solid;
-	border-color: var(--borderColor);
-	margin-right: var(--narrowMargin);
-	padding: var(--narrowPadding) var(--standardPadding);
-	outline: none;
-}
-
-.transport select {
-	padding-right: 30px;
-	font-size: var(--smallFontSize);
-}
-
-.transport button:disabled {
-	color: var(--mutedColor);
-	border-color: var(--mutedColor);
 }
 
 .editor {

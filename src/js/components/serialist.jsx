@@ -31,14 +31,16 @@ class Serialist extends Component {
 	}
 
 	componentDidMount() {
+		document.addEventListener('keyup', this.onKeyup.bind(this));
 		document.addEventListener('serialist.transport.state', this.updateTransportState.bind(this));
 		document.addEventListener('serialist.midi.message', this.updateMidiMessage.bind(this));
 		this.refreshMIDIPorts();
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('serialist.transport.state', this.updateTransportState);
-		document.removeEventListener('serialist.midi.message', this.updateMidiMessage);
+		document.removeEventListener('keyup', this.onKeyup.bind(this));
+		document.removeEventListener('serialist.transport.state', this.updateTransportState.bind(this));
+		document.removeEventListener('serialist.midi.message', this.updateMidiMessage.bind(this));
 	}
 
 	render() {
@@ -56,7 +58,7 @@ class Serialist extends Component {
 				</div>
 				<div className="transport">
 					<div className="controls">
-						<button onClick={this.evaluateText.bind(this)} disabled={this.disableUpdateText()}>
+						<button onClick={this.evaluateText.bind(this)} disabled={this.disableEvaluateText()}>
 							<i className={classnames('fa', 'fa-check')}></i>
 						</button>
 						<button onClick={this.playPause.bind(this)} disabled={this.disablePlayPause()}>
@@ -136,6 +138,32 @@ class Serialist extends Component {
 		});
 	}
 
+	onKeyup(event) {
+		// Evaluate text: Shift-Alt-Enter
+		// Play/Pause: Shift-Alt-Space
+		// Stop: Ctrl-Shift-Alt-Space
+		switch(event.which) {
+		case 13: // Enter
+			if (event.altKey && event.shiftKey) {
+				event.preventDefault();
+				this.evaluateText();
+			}
+			break;
+		case 32: // Space
+			if (event.altKey && event.shiftKey) {
+				event.preventDefault();
+				if (event.ctrlKey) {
+					this.stop();
+				} else {
+					this.playPause();
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
 	updateTransportState(event) {
 		if (event.detail.sender === player) {
 			this.setState({ transport: event.detail.state });
@@ -157,10 +185,12 @@ class Serialist extends Component {
 	}
 
 	playPause() {
-		if (player.playing && !player.paused) {
-			player.pause();
-		} else {
-			player.play();
+		if (!this.disablePlayPause()) {
+			if (player.playing && !player.paused) {
+				player.pause();
+			} else {
+				player.play();
+			}
 		}
 	}
 
@@ -170,12 +200,9 @@ class Serialist extends Component {
 	}
 
 	stop() {
-		player.stop();
-	}
-
-	disableUpdateText() {
-		var { midiPortSelected, text } = this.state;
-		return !MIDISource.canUseMIDI() || !midiPortSelected || !text.length;
+		if (!this.disableStop()) {
+			player.stop();
+		}
 	}
 
 	reset() {
@@ -192,20 +219,27 @@ class Serialist extends Component {
 		});
 	}
 
+	disableEvaluateText() {
+		var { midiPortSelected, text } = this.state;
+		return !MIDISource.canUseMIDI() || !midiPortSelected || !text.length;
+	}
+
 	evaluateText() {
-		let text = this.state.text;
-		if (text.length) {
-			let parseResult = this.parseText(text);
-			let history = (parseResult.status) ? [text, ...this.state.history] : this.state.history;
+		if (!this.disableEvaluateText()) {
+			let text = this.state.text;
+			if (text.length) {
+				let parseResult = this.parseText(text);
+				let history = (parseResult.status) ? [text, ...this.state.history] : this.state.history;
 
-			if (parseResult.status && parseResult.data) {
-				player.queueVoices(parseResult.data);
+				if (parseResult.status && parseResult.data) {
+					player.queueVoices(parseResult.data);
+				}
+
+				this.setState({
+					parseResult,
+					history
+				});
 			}
-
-			this.setState({
-				parseResult,
-				history
-			});
 		}
 	}
 

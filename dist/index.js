@@ -15468,6 +15468,7 @@
 		(0, _createClass3.default)(Serialist, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
+				document.addEventListener('keyup', this.onKeyup.bind(this));
 				document.addEventListener('serialist.transport.state', this.updateTransportState.bind(this));
 				document.addEventListener('serialist.midi.message', this.updateMidiMessage.bind(this));
 				this.refreshMIDIPorts();
@@ -15475,8 +15476,9 @@
 		}, {
 			key: 'componentWillUnmount',
 			value: function componentWillUnmount() {
-				document.removeEventListener('serialist.transport.state', this.updateTransportState);
-				document.removeEventListener('serialist.midi.message', this.updateMidiMessage);
+				document.removeEventListener('keyup', this.onKeyup.bind(this));
+				document.removeEventListener('serialist.transport.state', this.updateTransportState.bind(this));
+				document.removeEventListener('serialist.midi.message', this.updateMidiMessage.bind(this));
 			}
 		}, {
 			key: 'render',
@@ -15512,7 +15514,7 @@
 							{ className: 'controls' },
 							_react2.default.createElement(
 								'button',
-								{ onClick: this.evaluateText.bind(this), disabled: this.disableUpdateText() },
+								{ onClick: this.evaluateText.bind(this), disabled: this.disableEvaluateText() },
 								_react2.default.createElement('i', { className: (0, _classnames2.default)('fa', 'fa-check') })
 							),
 							_react2.default.createElement(
@@ -15626,6 +15628,35 @@
 				});
 			}
 		}, {
+			key: 'onKeyup',
+			value: function onKeyup(event) {
+				// Evaluate text: Shift-Alt-Enter
+				// Play/Pause: Shift-Alt-Space
+				// Stop: Ctrl-Shift-Alt-Space
+				switch (event.which) {
+					case 13:
+						// Enter
+						if (event.altKey && event.shiftKey) {
+							event.preventDefault();
+							this.evaluateText();
+						}
+						break;
+					case 32:
+						// Space
+						if (event.altKey && event.shiftKey) {
+							event.preventDefault();
+							if (event.ctrlKey) {
+								this.stop();
+							} else {
+								this.playPause();
+							}
+						}
+						break;
+					default:
+						break;
+				}
+			}
+		}, {
 			key: 'updateTransportState',
 			value: function updateTransportState(event) {
 				if (event.detail.sender === player) {
@@ -15654,10 +15685,12 @@
 		}, {
 			key: 'playPause',
 			value: function playPause() {
-				if (player.playing && !player.paused) {
-					player.pause();
-				} else {
-					player.play();
+				if (!this.disablePlayPause()) {
+					if (player.playing && !player.paused) {
+						player.pause();
+					} else {
+						player.play();
+					}
 				}
 			}
 		}, {
@@ -15672,16 +15705,9 @@
 		}, {
 			key: 'stop',
 			value: function stop() {
-				player.stop();
-			}
-		}, {
-			key: 'disableUpdateText',
-			value: function disableUpdateText() {
-				var _state3 = this.state,
-				    midiPortSelected = _state3.midiPortSelected,
-				    text = _state3.text;
-	
-				return !_midi.MIDISource.canUseMIDI() || !midiPortSelected || !text.length;
+				if (!this.disableStop()) {
+					player.stop();
+				}
 			}
 		}, {
 			key: 'reset',
@@ -15701,21 +15727,32 @@
 				});
 			}
 		}, {
+			key: 'disableEvaluateText',
+			value: function disableEvaluateText() {
+				var _state3 = this.state,
+				    midiPortSelected = _state3.midiPortSelected,
+				    text = _state3.text;
+	
+				return !_midi.MIDISource.canUseMIDI() || !midiPortSelected || !text.length;
+			}
+		}, {
 			key: 'evaluateText',
 			value: function evaluateText() {
-				var text = this.state.text;
-				if (text.length) {
-					var parseResult = this.parseText(text);
-					var history = parseResult.status ? [text].concat((0, _toConsumableArray3.default)(this.state.history)) : this.state.history;
+				if (!this.disableEvaluateText()) {
+					var text = this.state.text;
+					if (text.length) {
+						var parseResult = this.parseText(text);
+						var history = parseResult.status ? [text].concat((0, _toConsumableArray3.default)(this.state.history)) : this.state.history;
 	
-					if (parseResult.status && parseResult.data) {
-						player.queueVoices(parseResult.data);
+						if (parseResult.status && parseResult.data) {
+							player.queueVoices(parseResult.data);
+						}
+	
+						this.setState({
+							parseResult: parseResult,
+							history: history
+						});
 					}
-	
-					this.setState({
-						parseResult: parseResult,
-						history: history
-					});
 				}
 			}
 		}, {

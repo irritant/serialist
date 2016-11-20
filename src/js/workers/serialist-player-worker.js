@@ -60,6 +60,8 @@ class SerialistVoiceQueue {
 		clearTimeout(this.timer);
 		this.playing = false;
 		this.paused = true;
+		this.startTime = 0;
+		this.targetTime = 0;
 		this.sendMidiNoteOff(this.note, this.velocity, this.channel);
 	}
 

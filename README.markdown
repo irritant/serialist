@@ -2,6 +2,8 @@
 
 Serialist is a live coding environment that uses [serialist-grammar](https://github.com/irritant/serialist-grammar) to generate MIDI messages. It requires a MIDI synthesizer (software or hardware) and does not generate any sound on its own.
 
+Just want to play? Visit [serialist.irritantcreative.ca](http://serialist.irritantcreative.ca) for the live demo.
+
 # Usage Tips &amp; Tricks
 
 * Review the [serialist-grammar](https://github.com/irritant/serialist-grammar#syntax) syntax.

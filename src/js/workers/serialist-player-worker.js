@@ -6,6 +6,14 @@ const now = () => {
 	}
 };
 
+const limitMIDIValue = (value) => {
+	return Math.min(Math.max(value, 0), 127);
+};
+
+const limitMIDIChannel = (value) => {
+	return Math.min(Math.max(value, 1), 16);
+};
+
 class SerialistVoiceQueue {
 
 	constructor() {
@@ -114,14 +122,22 @@ class SerialistVoiceQueue {
 	sendMidiNoteOn(note, velocity, channel) {
 		self.postMessage({
 			command: 'midi.note.on',
-			midi: { note, velocity, channel }
+			midi: {
+				note: limitMIDIValue(note),
+				velocity: limitMIDIValue(velocity),
+				channel: limitMIDIChannel(channel)
+			}
 		});
 	}
 
 	sendMidiNoteOff(note, velocity, channel) {
 		self.postMessage({
 			command: 'midi.note.off',
-			midi: { note, velocity, channel }
+			midi: {
+				note: limitMIDIValue(note),
+				velocity: limitMIDIValue(velocity),
+				channel: limitMIDIChannel(channel)
+			}
 		});
 	}
 

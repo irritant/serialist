@@ -33,7 +33,10 @@ var paths = {
       }
     },
     css: {
-      app: 'src/css/app/index.css',
+      app: {
+        entry: 'src/css/app/index.css',
+        files: 'src/css/app/**/*'
+      },
       vendor: [
         'src/css/vendor/font-awesome/css/font-awesome.min.css'
       ]
@@ -69,7 +72,7 @@ function logError(message) {
 /* ********* */
 
 function cssBaseTask() {
-  return gulp.src(paths.src.css.app)
+  return gulp.src(paths.src.css.app.entry)
     .pipe(stylelint({
       reporters: [{
         formatter: 'string',
@@ -232,7 +235,7 @@ function webpackWatchWorkers() {
 }
 
 gulp.task('watch', function() {
-  gulp.watch(paths.src.css.app, ['css-dev']);
+  gulp.watch(paths.src.css.app.files, ['css-dev']);
   gulp.watch(paths.src.css.vendor, ['css-vendor']);
   gulp.watch(paths.src.fonts, ['fonts']);
   gulp.watch(paths.src.img, ['images']);

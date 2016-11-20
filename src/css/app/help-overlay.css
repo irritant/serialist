@@ -1,0 +1,35 @@
+@import 'variables.css';
+
+.help-overlay-title {
+	font-size: 2em;
+	font-weight: normal;
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: var(--standardMargin);
+}
+
+.help-overlay-content a {
+	color: var(--textColor);
+	text-decoration: underline;
+}
+
+.help-overlay-content a:hover,
+.help-overlay-content a:active {
+	color: var(--hoverColor);
+}
+
+.help-close-button {
+	appearance: none;
+	background: none;
+	background-color: var(--backgroundColor);
+	color: var(--textColor);
+	font-family: var(--fontFamily);
+	font-size: var(--fontSize);
+	border-width: var(--borderWidth);
+	border-radius: var(--borderRadius);
+	border-style: solid;
+	border-color: var(--borderColor);
+	margin-right: var(--narrowMargin);
+	padding: var(--narrowPadding) var(--standardPadding);
+	outline: none;
+}

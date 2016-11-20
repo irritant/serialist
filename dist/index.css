@@ -16,6 +16,38 @@
 	background-color: rgba(0, 0, 0, 0.8);
 	z-index: 1000;
 }
+.help-overlay-title {
+	font-size: 2em;
+	font-weight: normal;
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+.help-overlay-content a {
+	color: #fff;
+	text-decoration: underline;
+}
+.help-overlay-content a:hover,
+.help-overlay-content a:active {
+	color: #a1a1a1;
+}
+.help-close-button {
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+	background: none;
+	background-color: #000;
+	color: #fff;
+	font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'sans-serif';
+	font-size: 16px;
+	border-width: 1px;
+	border-radius: 0;
+	border-style: solid;
+	border-color: #fff;
+	margin-right: 5px;
+	padding: 5px 10px;
+	outline: none;
+}
 .midi-overlay-title {
 	font-size: 2em;
 	font-weight: normal;
@@ -208,44 +240,6 @@ textarea.grammar {
 	font-family: 'Courier New';
 	font-size: 16px;
 	font-weight: 600;
-}
-.midi-overlay-title {
-	font-size: 2em;
-	font-weight: normal;
-	text-align: center;
-	margin-top: 0;
-	margin-bottom: 10px;
-}
-.midi-overlay-message {
-	text-align: center;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-.midi-overlay-message a {
-	color: #fff;
-	text-decoration: underline;
-}
-.midi-overlay-message a:hover,
-.midi-overlay-message a:active {
-	color: #a1a1a1;
-}
-.overlay {
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-direction: column;
-	    flex-direction: column;
-	-ms-flex-pack: center;
-	    justify-content: center;
-	-ms-flex-align: center;
-	    align-items: center;
-	margin: 10px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: rgba(0, 0, 0, 0.8);
-	z-index: 1000;
 }
 
 /*# sourceMappingURL=index.css.map */

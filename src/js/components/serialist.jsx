@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import classnames from 'classnames';
 import MidiOverlay from './midi-overlay';
+import HelpOverlay from './help-overlay';
 import SerialistParser from '../parser/serialist-parser';
 import SerialistPlayer from '../player/serialist-player';
 import { MIDISource, MIDIManager } from '../midi/';
@@ -24,7 +25,8 @@ class Serialist extends Component {
 			midiPorts: [],
 			midiPortSelected: false,
 			transport: {},
-			message: []
+			message: [],
+			helpVisible: false
 		};
 	}
 
@@ -43,6 +45,9 @@ class Serialist extends Component {
 		return (
 			<div className="serialist">
 				<MidiOverlay visible={!MIDISource.canUseMIDI()} />
+				<HelpOverlay visible={this.state.helpVisible} onClose={() => {
+					this.setState({helpVisible: false});
+				}} />
 				<div className="header">
 					<h1>Serialist</h1>
 					<a href="https://irritantcreative.ca" target="_blank">
@@ -74,6 +79,9 @@ class Serialist extends Component {
 								{this.renderMidiPorts()}
 							</select>
 						</div>
+						<button onClick={this.help.bind(this)}>
+							<i className={classnames('fa', 'fa-question')}></i>
+						</button>
 					</div>
 					{this.renderStatus()}
 				</div>
@@ -172,6 +180,10 @@ class Serialist extends Component {
 
 	reset() {
 		player.reset();
+	}
+
+	help() {
+		this.setState({helpVisible: true});
 	}
 
 	updateText(event) {

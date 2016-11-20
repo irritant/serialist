@@ -33,7 +33,7 @@ var paths = {
       }
     },
     css: {
-      app: 'src/css/app/**/*',
+      app: 'src/css/app/index.css',
       vendor: [
         'src/css/vendor/font-awesome/css/font-awesome.min.css'
       ]
@@ -77,7 +77,6 @@ function cssBaseTask() {
       }]
     }))
     .pipe(sourcemaps.init())
-    .pipe(concat('index.css', {newLine: '\n\n'}))
     .pipe(postcss([
       cssImport(),
       cssSimpleVars(),

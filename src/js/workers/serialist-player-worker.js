@@ -1,7 +1,17 @@
+const now = () => {
+	if (typeof performance !== 'undefined') {
+		return performance.now();
+	} else {
+		return new Date().getTime();
+	}
+};
+
 class SerialistVoiceQueue {
 
 	constructor() {
 		this.timer = 0;
+		this.startTime = 0;
+		this.targetTime = 0;
 
 		this.playing = false;
 		this.paused = false;
@@ -41,6 +51,7 @@ class SerialistVoiceQueue {
 		if (!this.playing) {
 			this.playing = true;
 			this.paused = false;
+			this.startTime = now();
 			this.advance();
 		}
 	}
@@ -49,6 +60,8 @@ class SerialistVoiceQueue {
 		clearTimeout(this.timer);
 		this.playing = false;
 		this.paused = true;
+		this.startTime = 0;
+		this.targetTime = 0;
 		this.sendMidiNoteOff(this.note, this.velocity, this.channel);
 	}
 
@@ -57,6 +70,8 @@ class SerialistVoiceQueue {
 		this.playing = false;
 		this.paused = false;
 		this.position = 0;
+		this.startTime = 0;
+		this.targetTime = 0;
 		this.sendMidiNoteOff(this.note, this.velocity, this.channel);
 	}
 
@@ -64,17 +79,27 @@ class SerialistVoiceQueue {
 		const { id, pc, oct, dyn, dur } = this.voiceData;
 		const pos = this.position;
 
-		const currentPc = pc[pos % pc.length] || 0;
-		const currentOct = oct[pos % oct.length] || 0;
-		const currentDyn = dyn[pos % dyn.length] || 0.5;
-		const currentDur = dur[pos % dur.length] || 1;
+		const pcPos = pos % pc.length;
+		const octPos = pos % oct.length;
+		const dynPos = pos % dyn.length;
+		const durPos = pos % dur.length;
+
+		const currentPc = !isNaN(pc[pcPos]) ? pc[pcPos] : 0;
+		const currentOct = !isNaN(oct[octPos]) ? oct[octPos] : 0;
+		const currentDyn = !isNaN(dyn[dynPos]) ? dyn[dynPos] : 0.5;
+		const currentDur = !isNaN(dur[durPos]) ? dur[durPos] : 1;
 		const interval = currentDur * 1000;
+
+		// Compensate the interval for timer drift:
+		const drift = (now() - this.startTime) - this.targetTime;
+		const compensatedInterval = Math.max(interval - drift, 0);
 
 		this.note = ((currentOct + 4) * 12) + currentPc;
 		this.velocity = Math.round(currentDyn * 127);
 		this.channel = id;
 		this.sendMidiNoteOn(this.note, this.velocity, this.channel);
 		this.position += 1;
+		this.targetTime += interval;
 
 		this.timer = setTimeout(() => {
 			if (this.playing && this.hasVoiceData()) {
@@ -83,7 +108,7 @@ class SerialistVoiceQueue {
 			} else {
 				this.stop();
 			}
-		}, interval);
+		}, compensatedInterval);
 	}
 
 	sendMidiNoteOn(note, velocity, channel) {
@@ -174,20 +199,20 @@ const manager = new SerialistVoiceQueueManager();
 
 self.addEventListener('message', message => {
 	switch (message.data.command) {
-		case 'voices.queue':
-			manager.setVoices(message.data.voices || []);
-			manager.play();
-			break;
-		case 'transport.play':
-			manager.play();
-			break;
-		case 'transport.pause':
-			manager.pause();
-			break;
-		case 'transport.stop':
-			manager.stop();
-			break;
-		default:
-			break;
+	case 'voices.queue':
+		manager.setVoices(message.data.voices || []);
+		manager.play();
+		break;
+	case 'transport.play':
+		manager.play();
+		break;
+	case 'transport.pause':
+		manager.pause();
+		break;
+	case 'transport.stop':
+		manager.stop();
+		break;
+	default:
+		break;
 	}
 });

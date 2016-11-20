@@ -1,7 +1,7 @@
 class SerialistPlayer {
 
 	constructor() {
-		this.worker = new Worker('dist/serialist-player-worker.js');
+		this.worker = new Worker('/dist/serialist-player-worker.js');
 		this.worker.addEventListener('message', message => {
 			var { data } = message;
 			switch (data.command) {
@@ -34,14 +34,23 @@ class SerialistPlayer {
 	}
 
 	sendMidiNoteOn(midi) {
-		var { note, velocity, channel } = midi;
-		this.sendMidiMessage([0x90 + (channel - 1), note, velocity]);
+		let { note, velocity, channel } = midi;
+		let message = [0x90 + (channel - 1), note, velocity];
+
+		this.sendMidiMessage(message);
+
+		document.dispatchEvent(new CustomEvent('serialist.midi.message', {
+			detail: { sender: this, message }
+		}));
 	}
 
 	sendMidiNoteOff(midi) {
-		var { note, velocity, channel } = midi;
-		this.sendMidiMessage([0x80 + (channel - 1), note, velocity]);
-		this.sendMidiMessage([0x90 + (channel - 1), note, 0]);
+		let { note, velocity, channel } = midi;
+		let message1 = [0x80 + (channel - 1), note, velocity];
+		let message2 = [0x90 + (channel - 1), note, 0];
+
+		this.sendMidiMessage(message1);
+		this.sendMidiMessage(message2);
 	}
 
 	sendMidiAllNotesOff() {
@@ -87,4 +96,4 @@ class SerialistPlayer {
 
 }
 
-export { SerialistPlayer };
+export default SerialistPlayer;

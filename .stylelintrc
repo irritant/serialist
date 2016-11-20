@@ -1,0 +1,479 @@
+{
+  "rules": {
+    "indentation": ["tab", {
+      "severity": "warning",
+      "message": "Use 2 spaces for indentation"
+    }],
+    "max-empty-lines": [1, {
+      "severity": "warning",
+      "message": "Avoid multiple consecutive empty lines"
+    }],
+    "max-line-length": [80, {
+      "severity": "warning",
+      "message": "Limit line length to 80 characters"
+    }],
+    "max-nesting-depth": [3, {
+      "severity": "warning",
+      "message": "Limit nesting to 3 levels"
+    }],
+    "no-browser-hacks": [true, {
+      "severity": "warning",
+      "message": "Avoid browser hacks"
+    }],
+    "no-duplicate-selectors": [true, {
+      "severity": "warning",
+      "message": "Avoid using duplicate selectors"
+    }],
+    "no-empty-source": [true, {
+      "severity": "warning",
+      "message": "Avoid importing empty CSS files"
+    }],
+    "no-eol-whitespace": [true, {
+      "severity": "warning",
+      "message": "Avoid whitespace at the end of lines"
+    }],
+    "no-extra-semicolons": [true, {
+      "severity": "warning",
+      "message": "Avoid unnecessary semicolons"
+    }],
+    "no-indistinguishable-colors": [true, {
+      "severity": "warning",
+      "message": "Avoid indistinguishable colors"
+    }],
+    "no-invalid-double-slash-comments": [true, {
+      "severity": "warning",
+      "message": "Avoid double-slash comments"
+    }],
+    "no-missing-end-of-source-newline": [true, {
+      "severity": "warning",
+      "message": "Files should end with a line break"
+    }],
+    "no-unknown-animations": [true, {
+      "severity": "error",
+      "message": "Unknown animation name"
+    }],
+    "color-no-invalid-hex": [true, {
+      "severity": "error",
+      "message": "Invalid hex color"
+    }],
+    "color-hex-case": ["lower", {
+      "severity": "warning",
+      "message": "Use lowercase letters in hex colors"
+    }],
+    "color-named": ["never", {
+      "severity": "warning",
+      "message": "Avoid named colors"
+    }],
+    "font-family-name-quotes": ["always-where-recommended", {
+      "severity": "warning",
+      "message": "Font family names that contain spaces or punctuation should be quoted"
+    }],
+    "function-comma-space-after": ["always-single-line", {
+      "severity": "warning",
+      "message": "Commas in CSS functions should be followed by a single space"
+    }],
+    "function-comma-space-before": ["never", {
+      "severity": "warning",
+      "message": "Avoid whitespace before commas in CSS functions"
+    }],
+    "function-calc-no-unspaced-operator": [true, {
+      "severity": "warning",
+      "message": "Use whitespace around operators in calc functions"
+    }],
+    "function-linear-gradient-no-nonstandard-direction": [true, {
+      "severity": "error",
+      "message": "Use only standard direction values for linear gradients"
+    }],
+    "function-max-empty-lines": [0, {
+      "severity": "warning",
+      "message": "Use only single line breaks between lines in CSS functions"
+    }],
+    "function-name-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters in CSS function names"
+    }],
+    "function-parentheses-newline-inside": ["always-multi-line", {
+      "severity": "warning",
+      "message": "Each parameter must be on its own line in multi-line CSS functions"
+    }],
+    "function-parentheses-space-inside": ["never", {
+      "severity": "warning",
+      "message": "Avoid spaces inside CSS function parentheses"
+    }],
+    "function-url-quotes": ["always", {
+      "severity": "warning",
+      "message": "CSS urls should be wrapped in quotes"
+    }],
+    "function-whitespace-after": ["always", {
+      "severity": "warning",
+      "message": "Use whitespace after CSS functions"
+    }],
+    "number-leading-zero": ["always", {
+      "severity": "warning",
+      "message": "Fractional numbers less than 1 should have a leading zero"
+    }],
+    "number-max-precision": [2, {
+      "severity": "warning",
+      "message": "Fractional numbers should have a maximum precision of 2"
+    }],
+    "string-no-newline": [true, {
+      "severity": "error",
+      "message": "Newlines in CSS strings must be escaped"
+    }],
+    "string-quotes": ["single", {
+      "severity": "warning",
+      "message": "Use single quotes around CSS strings"
+    }],
+    "length-zero-no-unit": [true, {
+      "severity": "warning",
+      "message": "Avoid units on zero-value lengths"
+    }],
+    "unit-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters for CSS units"
+    }],
+    "unit-no-unknown": [true, {
+      "severity": "error",
+      "message": "Invalid CSS unit"
+    }],
+    "value-keyword-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters for CSS keyword values"
+    }],
+    "value-no-vendor-prefix": [true, {
+      "severity": "warning",
+      "message": "Avoid vendor prefixes"
+    }],
+    "value-list-comma-newline-after": ["always-multi-line", {
+      "severity": "warning",
+      "message": "Commas in multi-line CSS value lists should be followed by a line break"
+    }],
+    "value-list-comma-newline-before": ["never-multi-line", {
+      "severity": "warning",
+      "message": "Commas in multi-line CSS value lists should never be preceded by a line break"
+    }],
+    "value-list-comma-space-after": ["always-single-line", {
+      "severity": "warning",
+      "message": "Commas in CSS value lists should be followed by a single space"
+    }],
+    "value-list-comma-space-before": ["never", {
+      "severity": "warning",
+      "message": "Avoid whitespace before commas in CSS value lists"
+    }],
+    "value-list-max-empty-lines": [0, {
+      "severity": "warning",
+      "message": "Use only single line breaks between lines in CSS value lists"
+    }],
+    "shorthand-property-no-redundant-values": [true, {
+      "severity": "warning",
+      "message": "Avoid redundant values in shorthand properties"
+    }],
+    "property-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters for CSS properties"
+    }],
+    "property-no-unknown": [true, {
+      "severity": "error",
+      "message": "Invalid CSS property"
+    }],
+    "property-no-vendor-prefix": [true, {
+      "severity": "warning",
+      "message": "Avoid vendor prefixes"
+    }],
+    "keyframe-declaration-no-important": [true, {
+      "severity": "error",
+      "message": "Do not use !important"
+    }],
+    "declaration-bang-space-after": ["never", {
+      "severity": "warning",
+      "message": "Bang declarations should not be followed by whitespace"
+    }],
+    "declaration-bang-space-before": ["always", {
+      "severity": "warning",
+      "message": "Bang declarations should be preceded by a single space"
+    }],
+    "declaration-colon-newline-after": ["always-multi-line", {
+      "severity": "warning",
+      "message": "Colons in multi-line CSS declarations should be followed by a line break"
+    }],
+    "declaration-colon-space-after": ["always", {
+      "severity": "warning",
+      "message": "Colons should be followed by a single space"
+    }],
+    "declaration-colon-space-before": ["never", {
+      "severity": "warning",
+      "message": "Colons should never be preceded by whitespace"
+    }],
+    "declaration-empty-line-before": ["never", {
+      "severity": "warning",
+      "message": "Avoid empty lines between declarations"
+    }],
+    "declaration-no-important": [true, {
+      "severity": "error",
+      "message": "Do not use !important"
+    }],
+    "declaration-block-no-duplicate-properties": [true, {
+      "severity": "warning",
+      "message": "Avoid duplicate properties in declarations"
+    }],
+    "declaration-block-no-ignored-properties": [true, {
+      "severity": "warning",
+      "message": "A property is being ignored due to the value of another property in the same declaration"
+    }],
+    "declaration-block-semicolon-newline-after": ["always", {
+      "severity": "warning",
+      "message": "Declarations should be on separate lines"
+    }],
+    "declaration-block-semicolon-newline-before": ["never-multi-line", {
+      "severity": "warning",
+      "message": "Newlines between declarations should be after the semicolon"
+    }],
+    "declaration-block-semicolon-space-after": ["always-single-line", {
+      "severity": "warning",
+      "message": "Semicolons in single line declarations should always be followed by a single space"
+    }],
+    "declaration-block-semicolon-space-before": ["never", {
+      "severity": "warning",
+      "message": "Semicolons in declarations should never be preceded by whitespace"
+    }],
+    "declaration-block-single-line-max-declarations": [1, {
+      "severity": "warning",
+      "message": "Do not group multiple declarations on a single line"
+    }],
+    "declaration-block-trailing-semicolon": ["always", {
+      "severity": "warning",
+      "message": "The final declaration in a block should be followed by a semicolon"
+    }],
+    "block-closing-brace-empty-line-before": ["never", {
+      "severity": "warning",
+      "message": "The closing brace in a block should not be preceded by an empty line"
+    }],
+    "block-closing-brace-newline-after": ["always", {
+      "severity": "warning",
+      "message": "The closing brace in a block should always be followed by a line break"
+    }],
+    "block-closing-brace-newline-before": ["always", {
+      "severity": "warning",
+      "message": "The closing brace in a block should always be preceded by a line break"
+    }],
+    "block-no-empty": [true, {
+      "severity": "warning",
+      "message": "Avoid empty blocks"
+    }],
+    "block-no-single-line": [true, {
+      "severity": "warning",
+      "message": "Avoid single-line blocks"
+    }],
+    "block-opening-brace-newline-after": ["always", {
+      "severity": "warning",
+      "message": "The opening brace in a block should always be followed by a line break"
+    }],
+    "block-opening-brace-newline-before": ["never-single-line", {
+      "severity": "warning",
+      "message": "The opening brace in a single-line block should never be preceded by a line break"
+    }],
+    "block-opening-brace-space-before": ["always", {
+      "severity": "warning",
+      "message": "The opening brace in a block should always be preceded by a single space"
+    }],
+    "selector-attribute-brackets-space-inside": ["never", {
+      "severity": "warning",
+      "message": "Selector attributes should not contain spaces"
+    }],
+    "selector-attribute-operator-space-after": ["never", {
+      "severity": "warning",
+      "message": "Selector attributes should not contain spaces"
+    }],
+    "selector-attribute-operator-space-before": ["never", {
+      "severity": "warning",
+      "message": "Selector attributes should not contain spaces"
+    }],
+    "selector-attribute-quotes": ["always", {
+      "severity": "error",
+      "message": "Selector attribute values must be quoted"
+    }],
+    "selector-combinator-space-after": ["always", {
+      "severity": "warning",
+      "message": "Selector combinators should always be followed by a single space"
+    }],
+    "selector-combinator-space-before": ["always", {
+      "severity": "warning",
+      "message": "Selector combinators should always be preceded by a single space"
+    }],
+    "selector-descendant-combinator-no-non-space": [true, {
+      "severity": "warning",
+      "message": "Selector descendant combinators should always be separated by a single space"
+    }],
+    "selector-no-empty": [true, {
+      "severity": "warning",
+      "message": "Avoid empty selectors"
+    }],
+    "selector-no-vendor-prefix": [true, {
+      "severity": "warning",
+      "message": "Avoid vendor prefixes"
+    }],
+    "selector-pseudo-class-no-unknown": [true, {
+      "severity": "error",
+      "message": "Invalid pseudo class"
+    }],
+    "selector-pseudo-class-parentheses-space-inside": ["never", {
+      "severity": "warning",
+      "message": "Parentheses around selector pseudo classes should not contain spaces"
+    }],
+    "selector-pseudo-element-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters in selector pseudo elements"
+    }],
+    "selector-pseudo-element-colon-notation": ["single", {
+      "severity": "warning",
+      "message": "Only use double-colon notation for selector pseudo elements if necessary"
+    }],
+    "selector-pseudo-element-no-unknown": [true, {
+      "severity": "error",
+      "message": "Invalid pseudo element"
+    }],
+    "selector-root-no-composition": [true, {
+      "severity": "warning",
+      "message": "Avoid using composition on the :root selector"
+    }],
+    "selector-type-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters in type selectors"
+    }],
+    "selector-type-no-unknown": [true, {
+      "severity": "error",
+      "message": "Invalid type selector"
+    }],
+    "selector-max-empty-lines": [0, {
+      "severity": "warning",
+      "message": "Avoid empty lines in selectors"
+    }],
+    "selector-list-comma-newline-after": ["always", {
+      "severity": "warning",
+      "message": "Selectors in selector lists should be followed by a line break"
+    }],
+    "selector-list-comma-newline-before": ["never-multi-line", {
+      "severity": "warning",
+      "message": "Commas after selectors in selector lists should never be preceded by a line break"
+    }],
+    "selector-list-comma-space-after": ["always-single-line", {
+      "severity": "warning",
+      "message": "Commas after selectors in selector lists should always be followed by a single space"
+    }],
+    "selector-list-comma-space-before": ["never", {
+      "severity": "warning",
+      "message": "Commas after selectors in selector lists should never be preceded by whitespace"
+    }],
+    "root-no-standard-properties": [true, {
+      "severity": "warning",
+      "message": "Avoid standard properties in the :root selector"
+    }],
+    "rule-nested-empty-line-before": ["always", {
+      "except": ["first-nested"],
+      "ignore": ["after-comment"],
+      "severity": "warning",
+      "message": "Nested rules should be preceded by an empty line"
+    }],
+    "rule-non-nested-empty-line-before": ["always", {
+      "except": ["after-single-line-comment"],
+      "ignore": ["after-comment"],
+      "severity": "warning",
+      "message": "Rules should be preceded by an empty line"
+    }],
+    "media-feature-colon-space-after": ["always", {
+      "severity": "warning",
+      "message": "Colons after media features should always be followed by a single space"
+    }],
+    "media-feature-colon-space-before": ["never", {
+      "severity": "warning",
+      "message": "Colons after media features should never be preceded by whitespace"
+    }],
+    "media-feature-name-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters in media feature names"
+    }],
+    "media-feature-name-no-unknown": [true, {
+      "severity": "error",
+      "message": "Invalid media feature name"
+    }],
+    "media-feature-name-no-vendor-prefix": [true, {
+      "severity": "warning",
+      "message": "Avoid vendor prefixes"
+    }],
+    "media-feature-no-missing-punctuation": [true, {
+      "severity": "error",
+      "message": "Missing punctuation in media feature"
+    }],
+    "media-feature-parentheses-space-inside": ["always", {
+      "severity": "warning",
+      "message": "Parentheses around media features should not contain spaces"
+    }],
+    "media-feature-range-operator-space-after": ["always", {
+      "severity": "warning",
+      "message": "Operators in media features should always be followed by a single space"
+    }],
+    "media-feature-range-operator-space-before": ["always", {
+      "severity": "warning",
+      "message": "Operators in media features should always be preceded by a single space"
+    }],
+    "media-query-list-comma-newline-after": ["always", {
+      "severity": "warning",
+      "message": "Selectors in media query lists should be followed by a line break"
+    }],
+    "media-query-list-comma-newline-before": ["never-multi-line", {
+      "severity": "warning",
+      "message": "Commas after queries in media query lists should never be preceded by a line break"
+    }],
+    "media-query-list-comma-space-after": ["always", {
+      "severity": "warning",
+      "message": "Commas after queries in media query lists should always be followed by a single space"
+    }],
+    "media-query-list-comma-space-before": ["never", {
+      "severity": "warning",
+      "message": "Commas after queries in media query lists should never be preceded by whitespace"
+    }],
+    "at-rule-empty-line-before": ["always", {
+      "except": ["blockless-after-same-name-blockless", "blockless-group", "first-nested"],
+      "severity": "warning",
+      "message": "@ rules should be preceded by an empty line"
+    }],
+    "at-rule-name-case": ["lower", {
+      "severity": "warning",
+      "message": "Use only lowercase characters in @ rule names"
+    }],
+    "at-rule-name-space-after": ["always", {
+      "severity": "warning",
+      "message": "@ rule names should always be followed by a single space"
+    }],
+    "at-rule-no-unknown": [true, {
+      "severity": "error",
+      "message": "Invalid @ rule name"
+    }],
+    "at-rule-no-vendor-prefix": [true, {
+      "severity": "warning",
+      "message": "Avoid vendor prefixes"
+    }],
+    "at-rule-semicolon-newline-after": ["always", {
+      "severity": "warning",
+      "message": "@ rules should always be followed by a line break"
+    }],
+    "stylelint-disable-reason": ["always-before", {
+      "severity": "warning",
+      "message": "Provide a reason for disabling stylelint before the stylelint-disable comment"
+    }],
+    "comment-empty-line-before": ["always", {
+      "except": ["first-nested"],
+      "ignore": ["between-comments", "stylelint-commands"],
+      "severity": "warning",
+      "message": "Comments should be preceded by a line break"
+    }],
+    "comment-no-empty": [true, {
+      "severity": "warning",
+      "message": "Avoid empty comments"
+    }],
+    "comment-whitespace-inside": ["always", {
+      "severity": "warning",
+      "message": "Comment text should be separated from comment markers by a single space"
+    }]
+  }
+}

@@ -1,0 +1,20 @@
+:root {
+	--standardPadding: 10px;
+	--standardMargin: 10px;
+	--narrowPadding: 5px;
+	--narrowMargin: 5px;
+	--borderWidth: 1px;
+	--borderRadius: 0;
+	--backgroundColor: #191919;
+	--hoverBackgroundColor: #4c4c4c;
+	--borderColor: #fff;
+	--textColor: #fff;
+	--hoverColor: #a1a1a1;
+	--mutedColor: #a1a1a1;
+	--alertColor: #ff0000;
+	--fontFamily: 'Avenir', 'Helvetica Neue', 'Helvetica', 'sans-serif';
+	--fontSize: 16px;
+	--smallFontSize: 12px;
+	--editorFontFamily: 'Courier New';
+	--editorFontSize: 16px;
+}

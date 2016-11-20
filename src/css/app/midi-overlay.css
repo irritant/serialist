@@ -1,0 +1,25 @@
+@import 'variables.css';
+
+.midi-overlay-title {
+	font-size: 2em;
+	font-weight: normal;
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: var(--standardMargin);
+}
+
+.midi-overlay-message {
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.midi-overlay-message a {
+	color: var(--textColor);
+	text-decoration: underline;
+}
+
+.midi-overlay-message a:hover,
+.midi-overlay-message a:active {
+	color: var(--hoverColor);
+}

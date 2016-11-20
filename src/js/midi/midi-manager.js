@@ -1,4 +1,4 @@
-import { MIDISource } from './midi-source';
+import MIDISource from './midi-source';
 
 class MIDIManager {
 
@@ -56,15 +56,15 @@ class MIDIManager {
 				});
 
 		});
-	};
+	}
 
 	resetPorts() {
 		this.inputPorts = {};
 		this.orderedInputPorts = [];
 		this.outputPorts = {};
 		this.orderedOutputPorts = [];
-	};
+	}
 
 }
 
-export { MIDIManager };
+export default MIDIManager;

@@ -3631,11 +3631,21 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var now = function now() {
+		if (typeof performance !== 'undefined') {
+			return performance.now();
+		} else {
+			return new Date().getTime();
+		}
+	};
+	
 	var SerialistVoiceQueue = function () {
 		function SerialistVoiceQueue() {
 			(0, _classCallCheck3.default)(this, SerialistVoiceQueue);
 	
 			this.timer = 0;
+			this.startTime = 0;
+			this.targetTime = 0;
 	
 			this.playing = false;
 			this.paused = false;
@@ -3683,6 +3693,7 @@
 				if (!this.playing) {
 					this.playing = true;
 					this.paused = false;
+					this.startTime = now();
 					this.advance();
 				}
 			}
@@ -3701,6 +3712,8 @@
 				this.playing = false;
 				this.paused = false;
 				this.position = 0;
+				this.startTime = 0;
+				this.targetTime = 0;
 				this.sendMidiNoteOff(this.note, this.velocity, this.channel);
 			}
 		}, {
@@ -3717,17 +3730,27 @@
 	
 				var pos = this.position;
 	
-				var currentPc = pc[pos % pc.length] || 0;
-				var currentOct = oct[pos % oct.length] || 0;
-				var currentDyn = dyn[pos % dyn.length] || 0.5;
-				var currentDur = dur[pos % dur.length] || 1;
+				var pcPos = pos % pc.length;
+				var octPos = pos % oct.length;
+				var dynPos = pos % dyn.length;
+				var durPos = pos % dur.length;
+	
+				var currentPc = !isNaN(pc[pcPos]) ? pc[pcPos] : 0;
+				var currentOct = !isNaN(oct[octPos]) ? oct[octPos] : 0;
+				var currentDyn = !isNaN(dyn[dynPos]) ? dyn[dynPos] : 0.5;
+				var currentDur = !isNaN(dur[durPos]) ? dur[durPos] : 1;
 				var interval = currentDur * 1000;
+	
+				// Compensate the interval for timer drift:
+				var drift = now() - this.startTime - this.targetTime;
+				var compensatedInterval = Math.max(interval - drift, 0);
 	
 				this.note = (currentOct + 4) * 12 + currentPc;
 				this.velocity = Math.round(currentDyn * 127);
 				this.channel = id;
 				this.sendMidiNoteOn(this.note, this.velocity, this.channel);
 				this.position += 1;
+				this.targetTime += interval;
 	
 				this.timer = setTimeout(function () {
 					if (_this3.playing && _this3.hasVoiceData()) {
@@ -3736,7 +3759,7 @@
 					} else {
 						_this3.stop();
 					}
-				}, interval);
+				}, compensatedInterval);
 			}
 		}, {
 			key: 'sendMidiNoteOn',

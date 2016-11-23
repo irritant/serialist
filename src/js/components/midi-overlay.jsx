@@ -13,7 +13,7 @@ class MidiOverlay extends Component {
 					<h1 className="midi-overlay-title">Sorry :(</h1>
 					<p className="midi-overlay-message">
 						Serialist requires a browser that supports the Web MIDI API.<br />
-						Please try the latest version of <a href="https://www.google.com/intl/en/chrome/browser/desktop/index.html" target="_blank">Chrome</a> or <a href="http://www.opera.com" target="_blank">Opera</a>.
+						Please try the latest version of <a href="https://www.google.com/intl/en/chrome/browser/desktop/index.html" target="_blank">Chrome</a>.
 					</p>
 				</Overlay>
 			);

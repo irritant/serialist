@@ -18,7 +18,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-localization": "0.0.8",
-    "serialist-grammar": "^0.1.2",
+    "serialist-grammar": "^0.2.0",
     "source-map-support": "^0.4.5",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2",

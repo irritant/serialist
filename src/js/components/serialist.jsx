@@ -19,9 +19,10 @@ class Serialist extends Component {
 		super(props);
 
 		this.state = {
-			history: [],
 			text: '',
 			parseResult: {},
+			commandHistory: [],
+			midiHistory: [],
 			midiPorts: [],
 			midiPortSelected: false,
 			transport: {},
@@ -33,14 +34,14 @@ class Serialist extends Component {
 	componentDidMount() {
 		document.addEventListener('keyup', this.onKeyup.bind(this));
 		document.addEventListener('serialist.transport.state', this.updateTransportState.bind(this));
-		document.addEventListener('serialist.midi.message', this.updateMidiMessage.bind(this));
+		document.addEventListener('serialist.midi.messages', this.updateMidiHistory.bind(this));
 		this.refreshMIDIPorts();
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener('keyup', this.onKeyup.bind(this));
 		document.removeEventListener('serialist.transport.state', this.updateTransportState.bind(this));
-		document.removeEventListener('serialist.midi.message', this.updateMidiMessage.bind(this));
+		document.removeEventListener('serialist.midi.messages', this.updateMidiHistory.bind(this));
 	}
 
 	render() {
@@ -85,34 +86,24 @@ class Serialist extends Component {
 							<i className={classnames('fa', 'fa-question')}></i>
 						</button>
 					</div>
-					{this.renderStatus()}
 				</div>
 				<div className="editor">
 					<label>
-						<span>Command</span>
+						<span>Current Command</span>
 						<textarea className="grammar" value={this.state.text} onChange={this.updateText.bind(this)} />
 					</label>
 					<label>
-						<span>History</span>
-						<textarea className="history" value={this.state.history.join('\n\n')} readOnly />
+						<span>Command History</span>
+						<textarea className="command-history" value={this.state.commandHistory.join('\n\n')} readOnly />
+					</label>
+					<label>
+						<span>MIDI History</span>
+						<textarea className="midi-history" value={this.state.midiHistory.join('\n')} readOnly />
 					</label>
 				</div>
 				{this.renderError()}
 			</div>
 		);
-	}
-
-	renderStatus() {
-		const message = this.state.message;
-		if (message.length === 3) {
-			return (
-				<div className="status">
-					<span>note: {message[1]} velocity: {message[2]}</span>
-				</div>
-			);
-		} else {
-			return null;
-		}
 	}
 
 	renderError() {
@@ -173,9 +164,35 @@ class Serialist extends Component {
 		}
 	}
 
-	updateMidiMessage(event) {
+	updateMidiHistory(event) {
+
+		const messageTypes = {
+			noteOn: 0x09,
+			noteOff: 0x08,
+			cc: 0x0B
+		};
+
 		if (event.detail.sender === player) {
-			this.setState({ message: event.detail.message });
+			let messages = event.detail.messages.map(msg => {
+				const status = msg[0] >> 4;
+				const channel = (msg[0] & 0x0F) + 1;
+				let text = '';
+				switch(status) {
+				case messageTypes.noteOn:
+					text = `Channel: ${channel} Note On: ${msg[1]} Velocity: ${msg[2]}`;
+					break;
+				case messageTypes.noteOff:
+					text = `Channel: ${channel} Note Off: ${msg[1]} Velocity: ${msg[2]}`;
+					break;
+				case messageTypes.cc:
+					text = `Channel: ${channel} CC: ${msg[1]} Value: ${msg[2]}`;
+					break;
+				}
+				return text;
+			});
+
+			let midiHistory = [...messages, ...this.state.midiHistory].slice(0, 50);
+			this.setState({ midiHistory });
 		}
 	}
 
@@ -229,7 +246,7 @@ class Serialist extends Component {
 			let text = this.state.text;
 			if (text.length) {
 				let parseResult = this.parseText(text);
-				let history = (parseResult.status) ? [text, ...this.state.history] : this.state.history;
+				let commandHistory = (parseResult.status) ? [text, ...this.state.commandHistory] : this.state.commandHistory;
 
 				if (parseResult.status && parseResult.data) {
 					player.queueVoices(parseResult.data);
@@ -237,7 +254,7 @@ class Serialist extends Component {
 
 				this.setState({
 					parseResult,
-					history
+					commandHistory
 				});
 			}
 		}

@@ -163,7 +163,7 @@ select {
 	font-size: var(--editorFontSize);
 }
 
-textarea.grammar {
+.editor > label:not(:last-child) > textarea {
 	margin-right: var(--standardMargin);
 }
 

@@ -7,7 +7,7 @@ const now = () => {
 };
 
 const invertMidiValue = value => {
-	return (value >= 0) ? value : 127 - value;
+	return (value >= 0) ? value : 127 + value;
 };
 
 const limitMidiValue = value => {

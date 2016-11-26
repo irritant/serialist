@@ -31,25 +31,23 @@ class SerialistPlayer {
 	}
 
 	sendMidiAllNotesOff() {
+		const messages = [];
 		for (let ch = 0; ch < 16; ch++) {
-			this.sendMidiMessage([0xB0 + ch, 0x7B, 0]);
+			messages.push([(0x0B << 4) + ch, 0x7B, 0]);
 		}
+		this.sendMidiMessages(messages);
 	}
 
 	sendMidiMessages(messages) {
-		messages.forEach(message => {
-			this.sendMidiMessage(message);
-		});
-	}
-
-	sendMidiMessage(message) {
 		if (this.midiPort) {
-			this.midiPort.send(message);
-		}
+			messages.forEach(message => {
+				this.midiPort.send(message);
+			});
 
-		document.dispatchEvent(new CustomEvent('serialist.midi.message', {
-			detail: { sender: this, message }
-		}));
+			document.dispatchEvent(new CustomEvent('serialist.midi.messages', {
+				detail: { sender: this, messages }
+			}));
+		}
 	}
 
 	queueVoices(voices) {

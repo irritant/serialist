@@ -6,12 +6,35 @@ const now = () => {
 	}
 };
 
-const limitMIDIValue = (value) => {
+const invertMidiValue = value => {
+	return (value >= 0) ? value : 127 + value;
+};
+
+const limitMidiValue = value => {
 	return Math.min(Math.max(value, 0), 127);
 };
 
-const limitMIDIChannel = (value) => {
+const limitMidiChannel = value => {
 	return Math.min(Math.max(value, 1), 16);
+};
+
+const midiNoteOnMessage = (note, velocity, channel) => {
+	return [(0x09 << 4) + (channel - 1), note, velocity];
+};
+
+const midiNoteOffMessagePair = (note, velocity, channel) => {
+	return [[(0x08 << 4) + (channel - 1), note, velocity], [(0x09 << 4) + (channel - 1), note, 0]];
+};
+
+const midiControllerMessage = (cc, value, channel) => {
+	return [(0x0B << 4) + (channel - 1), cc, value];
+};
+
+const sendMidiMessages = messages => {
+	self.postMessage({
+		command: 'midi.messages',
+		messages: messages
+	});
 };
 
 class SerialistVoiceQueue {
@@ -25,6 +48,7 @@ class SerialistVoiceQueue {
 		this.paused = false;
 		this.position = 0;
 
+		this.noteValid = false;
 		this.note = 0;
 		this.velocity = 0;
 		this.channel = 1;
@@ -36,9 +60,12 @@ class SerialistVoiceQueue {
 			dyn: [],
 			dur: []
 		};
+
+		this.ccData = {};
 	}
 
 	queueVoice(voice) {
+		// Queue note data:
 		Object.keys(this.voiceData).forEach(key => {
 			if (key === 'id') {
 				var id = parseInt(voice[key]);
@@ -47,12 +74,44 @@ class SerialistVoiceQueue {
 				this.voiceData[key] = voice[key] || [];
 			}
 		});
+
+		// Queue CC data:
+		let ccDataIn = {};
+
+		Object.keys(voice).filter(key => {
+			if (Object.keys(this.voiceData).indexOf(key) >= 0) {
+				return false;
+			} else {
+				return /^cc[0-9]+$/i.test(key);
+			}
+		}).map(key => {
+			return { key, value: key.match(/[0-9]+/) };
+		}).filter(data => {
+			let { value } = data;
+			return Array.isArray(value) && value.length;
+		}).forEach(data => {
+			let { key, value } = data;
+			let cc = limitMidiValue(parseInt(value[0]));
+			ccDataIn[cc] = voice[key] || [];
+		});
+
+		this.ccData = ccDataIn;
 	}
 
 	hasVoiceData() {
 		return Object.keys(this.voiceData).filter(key => {
 			return this.voiceData[key].length > 0;
 		}).length > 0;
+	}
+
+	hasCCData() {
+		return Object.keys(this.ccData).filter(key => {
+			return this.ccData[key].length > 0;
+		}).length > 0;
+	}
+
+	hasData() {
+		return this.hasVoiceData() || this.hasCCData();
 	}
 
 	play() {
@@ -70,7 +129,7 @@ class SerialistVoiceQueue {
 		this.paused = true;
 		this.startTime = 0;
 		this.targetTime = 0;
-		this.sendMidiNoteOff(this.note, this.velocity, this.channel);
+		this.sendCurrentNoteOffMessage();
 	}
 
 	stop() {
@@ -80,10 +139,11 @@ class SerialistVoiceQueue {
 		this.position = 0;
 		this.startTime = 0;
 		this.targetTime = 0;
-		this.sendMidiNoteOff(this.note, this.velocity, this.channel);
+		this.sendCurrentNoteOffMessage();
 	}
 
 	advance() {
+		const messages = [];
 		const { id, pc, oct, dyn, dur } = this.voiceData;
 		const pos = this.position;
 
@@ -91,6 +151,10 @@ class SerialistVoiceQueue {
 		const octPos = pos % oct.length;
 		const dynPos = pos % dyn.length;
 		const durPos = pos % dur.length;
+
+		// If no pitch class was provided, there cannot be a valid note.
+		// This flag will be used to
+		this.noteValid = !isNaN(pc[pcPos]);
 
 		const currentPc = !isNaN(pc[pcPos]) ? pc[pcPos] : 0;
 		const currentOct = !isNaN(oct[octPos]) ? oct[octPos] : 0;
@@ -102,16 +166,35 @@ class SerialistVoiceQueue {
 		const drift = (now() - this.startTime) - this.targetTime;
 		const compensatedInterval = Math.max(interval - drift, 0);
 
-		this.note = ((currentOct + 4) * 12) + currentPc;
-		this.velocity = Math.round(currentDyn * 127);
-		this.channel = id;
-		this.sendMidiNoteOn(this.note, this.velocity, this.channel);
+		this.channel = limitMidiChannel(id);
+
+		if (this.noteValid) {
+			this.note = limitMidiValue(((currentOct + 4) * 12) + currentPc);
+			this.velocity = limitMidiValue(Math.round(currentDyn * 127));
+		}
+
+		// CC messages:
+		Object.keys(this.ccData).map(cc => {
+			const ccList = this.ccData[cc];
+			const ccPos = pos % ccList.length;
+			const value = !isNaN(ccList[ccPos]) ? ccList[ccPos] : 0;
+			return { cc, value };
+		}).forEach(data => {
+			let { cc, value } = data;
+			value = limitMidiValue(invertMidiValue(value));
+			messages.push(midiControllerMessage(cc, value, this.channel));
+		});
+
+		// Note messages:
+		messages.push(midiNoteOnMessage(this.note, this.velocity, this.channel));
+		sendMidiMessages(messages);
+
 		this.position += 1;
 		this.targetTime += interval;
 
 		this.timer = setTimeout(() => {
-			if (this.playing && this.hasVoiceData()) {
-				this.sendMidiNoteOff(this.note, this.velocity, this.channel);
+			if (this.playing && this.hasData()) {
+				this.sendCurrentNoteOffMessage();
 				this.advance();
 			} else {
 				this.stop();
@@ -119,26 +202,11 @@ class SerialistVoiceQueue {
 		}, compensatedInterval);
 	}
 
-	sendMidiNoteOn(note, velocity, channel) {
-		self.postMessage({
-			command: 'midi.note.on',
-			midi: {
-				note: limitMIDIValue(note),
-				velocity: limitMIDIValue(velocity),
-				channel: limitMIDIChannel(channel)
-			}
-		});
-	}
-
-	sendMidiNoteOff(note, velocity, channel) {
-		self.postMessage({
-			command: 'midi.note.off',
-			midi: {
-				note: limitMIDIValue(note),
-				velocity: limitMIDIValue(velocity),
-				channel: limitMIDIChannel(channel)
-			}
-		});
+	sendCurrentNoteOffMessage() {
+		if (this.noteValid) {
+			const messages = midiNoteOffMessagePair(this.note, this.velocity, this.channel);
+			sendMidiMessages(messages);
+		}
 	}
 
 }

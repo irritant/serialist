@@ -8,11 +8,8 @@ class SerialistPlayer {
 			case 'transport.state':
 				this.updateTransportState(data.state);
 				break;
-			case 'midi.note.on':
-				this.sendMidiNoteOn(data.midi);
-				break;
-			case 'midi.note.off':
-				this.sendMidiNoteOff(data.midi);
+			case 'midi.messages':
+				this.sendMidiMessages(data.messages);
 				break;
 			default:
 				break;
@@ -33,35 +30,23 @@ class SerialistPlayer {
 		}));
 	}
 
-	sendMidiNoteOn(midi) {
-		let { note, velocity, channel } = midi;
-		let message = [0x90 + (channel - 1), note, velocity];
-
-		this.sendMidiMessage(message);
-
-		document.dispatchEvent(new CustomEvent('serialist.midi.message', {
-			detail: { sender: this, message }
-		}));
-	}
-
-	sendMidiNoteOff(midi) {
-		let { note, velocity, channel } = midi;
-		let message1 = [0x80 + (channel - 1), note, velocity];
-		let message2 = [0x90 + (channel - 1), note, 0];
-
-		this.sendMidiMessage(message1);
-		this.sendMidiMessage(message2);
-	}
-
 	sendMidiAllNotesOff() {
+		const messages = [];
 		for (let ch = 0; ch < 16; ch++) {
-			this.sendMidiMessage([0xB0 + ch, 0x7B, 0]);
+			messages.push([(0x0B << 4) + ch, 0x7B, 0]);
 		}
+		this.sendMidiMessages(messages);
 	}
 
-	sendMidiMessage(message) {
+	sendMidiMessages(messages) {
 		if (this.midiPort) {
-			this.midiPort.send(message);
+			messages.forEach(message => {
+				this.midiPort.send(message);
+			});
+
+			document.dispatchEvent(new CustomEvent('serialist.midi.messages', {
+				detail: { sender: this, messages }
+			}));
 		}
 	}
 

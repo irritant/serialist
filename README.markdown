@@ -7,12 +7,15 @@ Just want to play? Visit [serialist.irritantcreative.ca](http://serialist.irrita
 # Usage Tips &amp; Tricks
 
 * Review the [serialist-grammar](https://github.com/irritant/serialist-grammar#syntax) syntax.
+* Serialist uses the [serialist-grammar Data](https://github.com/irritant/serialist-grammar#data) syntax to send MIDI CC messages.
+* Label your CC rows in the format `cc<CC number>` (e.g. `cc1(32 64 96)` defines a row with values 32, 64 and 96 using CC 1).
 * Select a MIDI output port from the _MIDI Port_ menu (OS X users can use the _IAC Driver Bus_ to route MIDI messages to a DAW or software synth).
 * Type your command in the _Command_ field and click the check button or press `Shift-Alt-Return` to evaluate and play.
 * Control playback with the transport buttons or by pressing `Shift-Alt-Space` (play/pause) or `Shift-Ctrl-Alt-Space` (stop).
-* Modify your command and re-evaluate as often as you like. Your previous commands will be listed in the _History_ field.
+* Modify your command and re-evaluate as often as you like. Your previous commands will be listed in the _Command History_ field.
+* The last 50 outgoing MIDI messages are listed in the _MIDI History_ field.
 * You can use the [serialist-grammar identifier syntax](https://github.com/irritant/serialist-grammar#identifiers) to specify a MIDI channel for each voice. If you don't specify a MIDI channel, Serialist will send on channel 1.
-* After playing, save any interesting commands by copying them from the _History_ field to a text file on your computer.
+* After playing, save any interesting commands by copying them from the _Command History_ field to a text file on your computer.
 
 # Contributing
 
